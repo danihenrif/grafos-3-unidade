@@ -1,11 +1,10 @@
 package com.ufrn.imd.pcv;
 
-import com.ufrn.imd.ExcelToMatrix;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.ufrn.imd.pcv.BuscaLocal.TwoOpt.reversaodeSubcaminho;
 import static com.ufrn.imd.pcv.BuscaLocal.Swap.trocaDeVizinhos;
 import static com.ufrn.imd.pcv.Utils.calcularCusto;
 import static com.ufrn.imd.pcv.Utils.lerEntradaKM;
@@ -14,14 +13,13 @@ public class Grasp {
     public static void main(String[] args) {
         double[][] matrix = lerEntradaKM();
 
-        //Quantas vezes o grasp vai buscar a melhor solução
+        // Quantas vezes o grasp vai buscar a melhor solução
         int qtdBusca = 100;
 
-        Grasp(matrix, qtdBusca);
-
+        executarGrasp(matrix, qtdBusca);
     }
 
-    public static void Grasp(double[][] distancia, int qtdBuscarMelhorSolução) {
+    public static void executarGrasp(double[][] distancia, int qtdBuscarMelhorSolução) {
         List<Integer> melhorSolucao = new ArrayList<>();
         double melhorCusto = Double.MAX_VALUE;
 
@@ -29,6 +27,7 @@ public class Grasp {
             List<Integer> solucao = solucaoAleatoria(distancia);
 
             solucao = trocaDeVizinhos(solucao, distancia);
+            solucao = reversaodeSubcaminho(solucao, distancia);
 
             double custo = calcularCusto(distancia, solucao);
 
@@ -61,10 +60,12 @@ public class Grasp {
             double custoMin = Double.MAX_VALUE;
             double custoMax = Double.MIN_VALUE;
 
-            for(int cidade : naoVisitados) {
+            for (int cidade : naoVisitados) {
                 double custo = distancia[cidadeAtual][cidade];
-                if(custo < custoMin) custoMin = custo;
-                if(custo > custoMax) custoMax = custo;
+                if (custo < custoMin)
+                    custoMin = custo;
+                if (custo > custoMax)
+                    custoMax = custo;
             }
 
             for (int cidade : naoVisitados) {
