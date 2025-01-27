@@ -5,16 +5,14 @@ import com.ufrn.imd.ExcelToMatrix;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PcvGuloso {
+import static com.ufrn.imd.pcv.Utils.calcularCusto;
+import static com.ufrn.imd.pcv.Utils.lerEntradaKM;
+
+public class Guloso {
     public static void main(String[] args) {
         int cidadeInicial = 0; // Cidade de início (indexada por 0)
-        String filePath = "src/entradas/km.xlsx";
+        double[][] matrix = lerEntradaKM();
 
-        // Carregar a matriz do arquivo Excel
-        ExcelToMatrix.loadMatrixFromExcel(filePath);
-
-        // Acessar e utilizar a matriz estática
-        double[][] matrix = ExcelToMatrix.matrix;
         List<Integer> caminho = resolverPCV(matrix, cidadeInicial);
 
         // Exibir o caminho percorrido
@@ -50,14 +48,5 @@ public class PcvGuloso {
 
         caminho.add(cidadeInicial);
         return caminho;
-    }
-
-    // Método para calcular o custo total do caminho
-    public static double calcularCusto(double[][] matriz, List<Integer> caminho) {
-        double custoTotal = 0;
-        for (int i = 0; i < caminho.size() - 1; i++) {
-            custoTotal += matriz[caminho.get(i)][caminho.get(i + 1)];
-        }
-        return custoTotal;
     }
 }
