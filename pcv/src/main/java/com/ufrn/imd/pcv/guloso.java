@@ -1,4 +1,6 @@
-package com.ufrn.imd;
+package com.ufrn.imd.pcv;
+
+import com.ufrn.imd.ExcelToMatrix;
 
 public class guloso {
     public static void main(String[] args) {
