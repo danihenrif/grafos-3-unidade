@@ -7,7 +7,20 @@ import java.util.List;
 public class Utils {
     public static double[][] lerEntradaKM() {
         // Caminho do arquivo XLSX
-        String filePath = "pcv/src/entradas/km.xlsx";
+        String filePath = "pcv/src/entradas/48/km.xlsx";
+
+        // Carregar a matriz do arquivo Excel
+        ExcelToMatrix.loadMatrixFromExcel(filePath);
+
+        // Acessar e utilizar a matriz estática
+        double[][] matrix = ExcelToMatrix.matrix;
+
+        return matrix;
+    }
+
+    public static double[][] lerEntradaMin() {
+        // Caminho do arquivo XLSX
+        String filePath = "pcv/src/entradas/48/km.xlsx";
 
         // Carregar a matriz do arquivo Excel
         ExcelToMatrix.loadMatrixFromExcel(filePath);
