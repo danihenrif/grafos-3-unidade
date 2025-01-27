@@ -3,11 +3,11 @@ package com.ufrn.imd.pcv;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ufrn.imd.pcv.Utils.lerEntradaKM;
+import static com.ufrn.imd.pcv.Utils.lerEntrada;
 
 public class InsercaoMaisBarata {
     public static void main(String[] args) {
-        double[][] matriz = lerEntradaKM();
+        double[][] matriz = lerEntrada(48, "km");
 
         // Cidade inicial (indexada por 0)
         int cidadeInicial = 0;
@@ -75,5 +75,19 @@ public class InsercaoMaisBarata {
             custoTotal += matriz[caminho.get(i)][caminho.get(i + 1)];
         }
         return custoTotal;
+    }
+
+    public static double rodarInsercaoMaisBarata(int entradaArquivo, int cidadeInicial, String tipo) {
+
+        double[][] matriz = lerEntrada(entradaArquivo, tipo);
+
+        // Resolver o problema do caixeiro viajante com Inserção Mais Barata
+        List<Integer> caminho = resolverPCVInsercaoMaisBarata(matriz, cidadeInicial);
+
+        // Exibir o caminho percorrido e o custo total
+        System.out.println("Caminho percorrido: " + caminho);
+        System.out.println("Custo total: " + calcularCusto(matriz, caminho));
+
+        return  calcularCusto(matriz, caminho);
     }
 }

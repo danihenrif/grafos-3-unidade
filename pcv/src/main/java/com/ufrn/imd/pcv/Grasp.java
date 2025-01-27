@@ -7,11 +7,11 @@ import java.util.Random;
 import static com.ufrn.imd.pcv.BuscaLocal.TwoOpt.reversaodeSubcaminho;
 import static com.ufrn.imd.pcv.BuscaLocal.Swap.trocaDeVizinhos;
 import static com.ufrn.imd.pcv.Utils.calcularCusto;
-import static com.ufrn.imd.pcv.Utils.lerEntradaKM;
+import static com.ufrn.imd.pcv.Utils.lerEntrada;
 
 public class Grasp {
     public static void main(String[] args) {
-        double[][] matrix = lerEntradaKM();
+        double[][] matrix = lerEntrada(48, "km");
 
         // Quantas vezes o grasp vai buscar a melhor solução
         int qtdBusca = 100;
@@ -19,7 +19,7 @@ public class Grasp {
         executarGrasp(matrix, qtdBusca);
     }
 
-    public static void executarGrasp(double[][] distancia, int qtdBuscarMelhorSolução) {
+    public static double executarGrasp(double[][] distancia, int qtdBuscarMelhorSolução) {
         List<Integer> melhorSolucao = new ArrayList<>();
         double melhorCusto = Double.MAX_VALUE;
 
@@ -39,6 +39,8 @@ public class Grasp {
 
         System.out.println("Solução: " + melhorSolucao.toString());
         System.out.println("Melhor custo: " + melhorCusto);
+
+        return melhorCusto;
     }
 
     private static List<Integer> solucaoAleatoria(double[][] distancia) {
@@ -82,5 +84,11 @@ public class Grasp {
         }
 
         return solucao;
+    }
+
+    public static double rodarGrasp(int entradaArquivo, int qtdBuscaMelhorSolucao, String tipo) {
+        double[][] matrix = lerEntrada(entradaArquivo, tipo);
+
+        return executarGrasp(matrix, qtdBuscaMelhorSolucao);
     }
 }

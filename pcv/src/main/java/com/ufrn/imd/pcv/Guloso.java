@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.ufrn.imd.pcv.Utils.calcularCusto;
-import static com.ufrn.imd.pcv.Utils.lerEntradaKM;
+import static com.ufrn.imd.pcv.Utils.lerEntrada;
 
 public class Guloso {
     public static void main(String[] args) {
         int cidadeInicial = 0; // Cidade de início (indexada por 0)
-        double[][] matrix = lerEntradaKM();
+        double[][] matrix = lerEntrada(48, "km");
 
         List<Integer> caminho = resolverPCV(matrix, cidadeInicial);
 
@@ -46,5 +46,17 @@ public class Guloso {
 
         caminho.add(cidadeInicial);
         return caminho;
+    }
+
+    public static double rodarGuloso(int entradaArquivo, int cidadeInicial, String tipo){
+        double[][] matrix = lerEntrada(entradaArquivo, tipo);
+
+        List<Integer> caminho = resolverPCV(matrix, cidadeInicial);
+
+        // Exibir o caminho percorrido
+        System.out.println("Caminho percorrido: " + caminho);
+        System.out.println("Custo total: " + calcularCusto(matrix, caminho));
+
+        return calcularCusto(matrix, caminho);
     }
 }
